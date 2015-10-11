@@ -1,0 +1,24 @@
+{
+  "name": "cgol-redux",
+  "version": "0.0.1",
+  "description": "Better than a todo to learn redux",
+  "main": "index.js",
+  "scripts": {
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/craigbilner/cgol-redux.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "conway"
+  ],
+  "author": "Craig Bilner",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/craigbilner/cgol-redux/issues"
+  },
+  "homepage": "https://github.com/craigbilner/cgol-redux#readme"
+}
