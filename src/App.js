@@ -1,3 +1,5 @@
-export default props => (
-  <div>test</div>
-)
+import React from 'react';
+
+export const App = (props) => (
+  <div>The start</div>
+);
