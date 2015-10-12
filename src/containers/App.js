@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const App = (props) => (
+export default (props) => (
   <div>The start</div>
 );
