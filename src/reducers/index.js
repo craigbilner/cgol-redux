@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import { grid, neighbours} from './board';
+import { board, entities} from './board';
 
 export default combineReducers({
-  grid,
-  neighbours
+  board,
+  entities
 });
 

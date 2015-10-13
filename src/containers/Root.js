@@ -9,11 +9,17 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import allReducers from '../reducers/index';
 import App from './app';
+import { initGrid } from '../action-creators';
 
 const store = compose(
   applyMiddleware(thunk, logger()),
   devTools()
 )(createStore)(allReducers);
+
+store.dispatch(initGrid({
+  rows: 12,
+  columns: 12
+}));
 
 export default class RootComponent extends React.Component {
   constructor(props) {
