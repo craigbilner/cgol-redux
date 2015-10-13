@@ -1,5 +1,13 @@
-import { BUILD_BOARD, POPULATE_ENTITIES } from '../actions/index';
+import { BUILD_BOARD, POPULATE_ENTITIES, TOGGLE_VALUE } from '../actions/index';
 import { getNeighbours } from '../reducers/board';
+
+export const toggleValue = ({id, curValue}) => ({
+  type: TOGGLE_VALUE,
+  payload: {
+    id,
+    curValue
+  }
+});
 
 export const buildBoard = ({rows, columns}) => ({
   type: BUILD_BOARD,

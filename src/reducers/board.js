@@ -1,4 +1,4 @@
-import { BUILD_BOARD, POPULATE_ENTITIES } from '../actions/index';
+import { BUILD_BOARD, POPULATE_ENTITIES, TOGGLE_VALUE } from '../actions/index';
 
 
 export const board = (prevState = [], action = {}) => {
@@ -58,7 +58,7 @@ export const entities = (prevState = {}, action = {}) => {
 
   if (action.type === POPULATE_ENTITIES) {
     const {board, getNeighbours, rows, columns} = action.payload;
-    nextState = board.reduce((entityMap, row, x) => {
+    Object.assign(nextState, board.reduce((entityMap, row, x) => {
       return Object.assign({}, entityMap, row.reduce((colMap, column, y)=> {
         return Object.assign({}, colMap, {
           [`${x}|${y}`]: {
@@ -67,7 +67,16 @@ export const entities = (prevState = {}, action = {}) => {
           }
         });
       }, Object.assign({}, entityMap)));
-    }, {});
+    }, {}));
+  }
+
+  if (action.type === TOGGLE_VALUE) {
+    Object.assign(nextState, {
+      [action.payload.id]: {
+        value: (!action.payload.curValue) >> 0,
+        neighbours: prevState[action.payload.id].neighbours
+      }
+    });
   }
 
   return nextState;
