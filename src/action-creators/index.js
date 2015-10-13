@@ -1,4 +1,5 @@
 import { BUILD_BOARD, POPULATE_ENTITIES } from '../actions/index';
+import { getNeighbours } from '../reducers/board';
 
 export const buildBoard = ({rows, columns}) => ({
   type: BUILD_BOARD,
@@ -8,16 +9,22 @@ export const buildBoard = ({rows, columns}) => ({
   }
 });
 
-export const populateEntities = ({board}) => ({
+export const populateEntities = ({board, rows, columns, getNeighbours}) => ({
   type: POPULATE_ENTITIES,
   payload: {
-    board
+    board,
+    rows,
+    columns,
+    getNeighbours
   }
 });
 
-export const initGrid = (opts) => (dispatch, getState) => {
-  dispatch(buildBoard(opts));
+export const initGrid = ({rows, columns}) => (dispatch, getState) => {
+  dispatch(buildBoard({rows, columns}));
   dispatch(populateEntities({
-    board: getState().board
+    board: getState().board,
+    rows,
+    columns,
+    getNeighbours
   }));
 };
