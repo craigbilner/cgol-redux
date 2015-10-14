@@ -14,7 +14,6 @@ export default {
     height: '90%',
     width: '90%',
     position: 'absolute',
-    backgroundColor: 'red',
     cursor: 'pointer',
     transition: 'opacity 0.25s ease-out'
   }

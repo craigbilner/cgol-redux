@@ -19,7 +19,9 @@ class App extends React.Component {
         <div style={styles.leftGutter}></div>
         <div style={styles.gol}>
           <Controls
-            nextTick={nextTick}
+            nextTick={nextTick.bind(null, {
+              columns: board[0].length
+            })}
             />
           <Board
             board={board}

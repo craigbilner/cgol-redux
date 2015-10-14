@@ -100,23 +100,27 @@ export const entities = (prevState = {}, action = {}) => {
   }
 
   if (action.type === TOGGLE_VALUE) {
+    const {id, curValue, colours} = action.payload;
+
     Object.assign(nextState, {
-      [action.payload.id]: {
-        value: (!action.payload.curValue) >> 0,
-        neighbours: prevState[action.payload.id].neighbours
+      [id]: {
+        value: (!curValue) >> 0,
+        neighbours: prevState[id].neighbours,
+        colour: colours[id.split('|')[0]]
       }
     });
   }
 
   if (action.type === NEXT_TICK) {
-    const {board, applyRules} = action.payload;
+    const {board, applyRules, colours} = action.payload;
     Object.assign(nextState, board.reduce((entityMap, row, x) => {
       return Object.assign({}, entityMap, row.reduce((colMap, column, y)=> {
         const id = `${x}|${y}`;
         return Object.assign({}, colMap, {
           [id]: {
             value: applyRules({id, entities: prevState}),
-            neighbours: prevState[id].neighbours
+            neighbours: prevState[id].neighbours,
+            colour: colours[Math.min(x + y, board.length)]
           }
         });
       }, entityMap));
