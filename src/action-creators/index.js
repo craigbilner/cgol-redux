@@ -38,11 +38,12 @@ export const initGrid = ({rows, columns}) => (dispatch, getState) => {
 };
 
 export const nextTick = () => (dispatch, getState) => {
-  dispatch({
-    type: NEXT_TICK,
-    payload: {
-      applyRules,
-      board: getState().board
-    }
-  });
+  setInterval(
+    dispatch.bind(null, {
+      type: NEXT_TICK,
+      payload: {
+        applyRules,
+        board: getState().board
+      }
+    }), 500);
 };

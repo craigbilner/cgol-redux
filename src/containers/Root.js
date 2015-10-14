@@ -17,8 +17,8 @@ const store = compose(
 )(createStore)(allReducers);
 
 store.dispatch(initGrid({
-  rows: 12,
-  columns: 12
+  rows: 17,
+  columns: 17
 }));
 
 export default class RootComponent extends React.Component {

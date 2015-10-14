@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './app-style';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { toggleValue, nextTick } from  '../action-creators/index';
@@ -14,15 +15,19 @@ class App extends React.Component {
     const { board, entities, toggleValue, nextTick } = this.props;
 
     return (
-      <div>
-        <Controls
-          nextTick={nextTick}
-          />
-        <Board
-          board={board}
-          entities={entities}
-          toggleValue={toggleValue}
-          />
+      <div style={styles.comp}>
+        <div style={styles.leftGutter}></div>
+        <div style={styles.gol}>
+          <Controls
+            nextTick={nextTick}
+            />
+          <Board
+            board={board}
+            entities={entities}
+            toggleValue={toggleValue}
+            />
+        </div>
+        <div style={styles.rightGutter}></div>
       </div>
     );
   }
