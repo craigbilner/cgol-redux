@@ -1,4 +1,4 @@
-import { BUILD_BOARD, POPULATE_ENTITIES, TOGGLE_VALUE } from '../actions/index';
+import { BUILD_BOARD, POPULATE_ENTITIES, TOGGLE_VALUE, NEXT_TICK } from '../actions/index';
 
 
 export const board = (prevState = [], action = {}) => {
@@ -53,6 +53,35 @@ export const getNeighbours = ({x, y, rows, columns}) => {
   }, []);
 };
 
+export const applyRules = ({id, entities}) => {
+  const curValue = entities[id].value;
+  const neighbours = entities[id].neighbours.map(eId => entities[eId].value);
+  const liveNeighbours = neighbours.reduce((total, value) => total + value, 0);
+  let value = null;
+
+  // Any live cell with fewer than two live neighbours dies, as if caused by under-population.
+  if (curValue === 1 && liveNeighbours < 2) {
+    value = 0;
+  }
+
+  // Any live cell with two or three live neighbours lives on to the next generation.
+  if (curValue === 1 && (liveNeighbours == 2 || liveNeighbours === 3)) {
+    value = 1;
+  }
+
+  // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+  if (curValue === 0 && liveNeighbours === 3) {
+    value = 1;
+  }
+
+  // Any live cell with more than three live neighbours dies, as if by over-population.
+  if (curValue === 1 && liveNeighbours > 3) {
+    value = 0;
+  }
+
+  return value === null ? 0 : value;
+};
+
 export const entities = (prevState = {}, action = {}) => {
   let nextState = Object.assign({}, prevState);
 
@@ -66,7 +95,7 @@ export const entities = (prevState = {}, action = {}) => {
             neighbours: getNeighbours({x, y, rows, columns})
           }
         });
-      }, Object.assign({}, entityMap)));
+      }, entityMap));
     }, {}));
   }
 
@@ -77,6 +106,21 @@ export const entities = (prevState = {}, action = {}) => {
         neighbours: prevState[action.payload.id].neighbours
       }
     });
+  }
+
+  if (action.type === NEXT_TICK) {
+    const {board, applyRules} = action.payload;
+    Object.assign(nextState, board.reduce((entityMap, row, x) => {
+      return Object.assign({}, entityMap, row.reduce((colMap, column, y)=> {
+        const id = `${x}|${y}`;
+        return Object.assign({}, colMap, {
+          [id]: {
+            value: applyRules({id, entities: prevState}),
+            neighbours: prevState[id].neighbours
+          }
+        });
+      }, entityMap));
+    }, {}));
   }
 
   return nextState;

@@ -1,5 +1,5 @@
-import { BUILD_BOARD, POPULATE_ENTITIES, TOGGLE_VALUE } from '../actions/index';
-import { getNeighbours } from '../reducers/board';
+import { BUILD_BOARD, POPULATE_ENTITIES, TOGGLE_VALUE, NEXT_TICK } from '../actions/index';
+import { getNeighbours, applyRules } from '../reducers/board';
 
 export const toggleValue = ({id, curValue}) => ({
   type: TOGGLE_VALUE,
@@ -35,4 +35,14 @@ export const initGrid = ({rows, columns}) => (dispatch, getState) => {
     columns,
     getNeighbours
   }));
+};
+
+export const nextTick = () => (dispatch, getState) => {
+  dispatch({
+    type: NEXT_TICK,
+    payload: {
+      applyRules,
+      board: getState().board
+    }
+  });
 };
