@@ -18,7 +18,7 @@ app.use(webpackdm(compiler, {
 app.use(webpackhm(compiler));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.dev.html'));
 });
 
 app.listen(3000, 'localhost', (err) => {

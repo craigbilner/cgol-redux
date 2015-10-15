@@ -120,7 +120,7 @@ export const entities = (prevState = {}, action = {}) => {
           [id]: {
             value: applyRules({id, entities: prevState}),
             neighbours: prevState[id].neighbours,
-            colour: colours[Math.min(x + y, board.length)]
+            colour: colours[Math.min(x + y, board.length - 1)]
           }
         });
       }, entityMap));

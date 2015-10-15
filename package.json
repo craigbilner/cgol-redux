@@ -4,6 +4,7 @@
   "description": "Better than a todo to learn redux",
   "main": "index.js",
   "scripts": {
+    "build": "NODE_ENV=PROD webpack --config webpack.config.prod.js",
     "build:dev": "NODE_ENV=development webpack --config webpack.config.dev.js",
     "start": "node devServer.js"
   },
