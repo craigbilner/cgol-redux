@@ -7,3 +7,6 @@ node_modules
 
 # dist
 dist
+
+# apple
+.DS_STORE
