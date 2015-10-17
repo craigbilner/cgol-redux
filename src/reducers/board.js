@@ -55,8 +55,10 @@ export const getNeighbours = ({x, y, rows, columns}) => {
 
 export const applyRules = ({id, entities}) => {
   const curValue = entities[id].value;
-  const neighbours = entities[id].neighbours.map(eId => entities[eId].value);
-  const liveNeighbours = neighbours.reduce((total, value) => total + value, 0);
+  const sumNeighbours = (total, eId) => total + entities[eId].value;
+  const liveNeighbours = entities[id]
+    .neighbours
+    .reduce(sumNeighbours, 0);
   let value = null;
 
   // Any live cell with fewer than two live neighbours dies, as if caused by under-population.
