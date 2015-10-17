@@ -4,9 +4,9 @@ import React from 'react';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import allReducers from '../reducers/index';
-import App from './app';
-import { initGrid } from '../action-creators';
+import allReducers from '../../reducers/index';
+import App from '../app/app-component';
+import { initGrid } from '../../action-creators';
 
 const store = compose(
   applyMiddleware(thunk)

@@ -2,9 +2,9 @@ import React from 'react';
 import styles from './app-style';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { toggleValue, nextTick } from  '../action-creators/index';
-import Board from '../components/board';
-import Controls from '../components/controls';
+import { toggleValue, nextTick } from  '../../action-creators/index';
+import Board from '../../components/board/board-component';
+import Controls from '../../components/controls/controls-component';
 
 class App extends React.Component {
   constructor(props) {

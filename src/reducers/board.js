@@ -1,6 +1,5 @@
 import { BUILD_BOARD, POPULATE_ENTITIES, TOGGLE_VALUE, NEXT_TICK } from '../actions/index';
 
-
 export const board = (prevState = [], action = {}) => {
   let nextState = prevState.slice(0);
 

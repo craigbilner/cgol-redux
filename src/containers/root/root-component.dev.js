@@ -7,9 +7,9 @@ import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-import allReducers from '../reducers/index';
-import App from './app';
-import { initGrid } from '../action-creators';
+import allReducers from '../../reducers/index';
+import App from '../app/app-component';
+import { initGrid } from '../../action-creators';
 
 const store = compose(
   applyMiddleware(thunk, logger()),

@@ -1,5 +1,5 @@
 import React from 'react';
-import Entity from '../components/entity';
+import Entity from '../entity/entity-component';
 import styles from './board-style';
 
 export default ({board, entities, toggleValue}) => (
