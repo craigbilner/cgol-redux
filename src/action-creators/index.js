@@ -43,7 +43,7 @@ export const initGrid = ({rows, columns}) => (dispatch, getState) => {
   }));
 };
 
-const nextTickInterval = ({applyRules, board, dispatch}) => {
+const nextTickInterval = ({applyRules, board, dispatch, cb}) => {
   const colourArray = new Array(board[0].length);
   colourArray.fill(0);
 
@@ -55,30 +55,34 @@ const nextTickInterval = ({applyRules, board, dispatch}) => {
       colours: colourArray.map(() => (~~(Math.random() * (1 << 24))).toString(16))
     }
   });
+  cb();
 };
 
-let interval = 0;
-
-export const nextTick = (dispatch, { board }) => {
-  interval = setInterval(nextTickInterval.bind(null, {
-    applyRules,
-    board,
-    dispatch
-  }), 500);
+export const autoPlay = (dispatch, getState) => {
+  const { board, entities, isInPlay } = getState();
+  if (entities.aliveCount && isInPlay) {
+    setTimeout(nextTickInterval.bind(null, {
+      applyRules,
+      board,
+      dispatch,
+      cb: autoPlay.bind(null, dispatch, getState)
+    }), 500);
+  } else {
+    pauseGame(dispatch);
+  }
 };
 
-const playGame = ({dispatch, state}) => {
+const playGame = ({dispatch, getState}) => {
   dispatch({
     type: PLAY_GAME
   });
-  nextTick(dispatch, state);
+  autoPlay(dispatch, getState);
 };
 
 const pauseGame = dispatch => {
   dispatch({
     type: PAUSE_GAME
   });
-  clearInterval(interval)
 };
 
 export const toggleInPlay = ()  => (dispatch, getState) => {
@@ -87,7 +91,7 @@ export const toggleInPlay = ()  => (dispatch, getState) => {
   } else {
     playGame({
       dispatch,
-      state: getState()
+      getState: getState
     });
   }
 };
