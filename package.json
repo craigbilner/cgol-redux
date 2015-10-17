@@ -6,7 +6,8 @@
   "scripts": {
     "build": "NODE_ENV=PROD webpack --config webpack.config.prod.js",
     "build:dev": "NODE_ENV=development webpack --config webpack.config.dev.js",
-    "start": "node devServer.js"
+    "start": "node devServer.js",
+    "postinstall": "npm run build && open ./index.prod.html"
   },
   "repository": {
     "type": "git",
