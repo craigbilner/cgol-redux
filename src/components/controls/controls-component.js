@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './controls-style';
 
-export default ({toggleInPlay, isInPlay, gameSpeed}) => (
+export default ({toggleInPlay, isInPlay, gameSpeed, toggleGameSpeed}) => (
   <div style={styles.comp}>
     <div style={styles.leftGutter}></div>
     <div
@@ -17,27 +17,33 @@ export default ({toggleInPlay, isInPlay, gameSpeed}) => (
     </div>
     <div style={styles.rightGutter}>
       <div style={
-        Object.assign({}, styles.speedButton, {
-          border: `1px solid ${gameSpeed === 1 ? '#4E1212' : '#BFBFBF'}`,
-          color: gameSpeed === 1 ? '#4E1212' : '#BFBFBF'
-        })
-      }>
+          Object.assign({}, styles.speedButton, {
+            border: `1px solid ${gameSpeed === 1 ? '#4E1212' : '#BFBFBF'}`,
+            color: gameSpeed === 1 ? '#4E1212' : '#BFBFBF'
+          })
+        }
+           onClick={toggleGameSpeed.bind(null, 1)}
+        >
         1x
       </div>
       <div style={
-        Object.assign({}, styles.speedButton, {
-          border: `1px solid ${gameSpeed === 5 ? '#4E1212' : '#BFBFBF'}`,
-          color: gameSpeed === 1 ? '#4E1212' : '#BFBFBF'
-        })
-      }>
+          Object.assign({}, styles.speedButton, {
+            border: `1px solid ${gameSpeed === 5 ? '#4E1212' : '#BFBFBF'}`,
+            color: gameSpeed === 5 ? '#4E1212' : '#BFBFBF'
+          })
+        }
+           onClick={toggleGameSpeed.bind(null, 5)}
+        >
         5x
       </div>
       <div style={
-        Object.assign({}, styles.speedButton, {
-          border: `1px solid ${gameSpeed === 10 ? '#4E1212' : '#BFBFBF'}`,
-          color: gameSpeed === 1 ? '#4E1212' : '#BFBFBF'
-        })
-      }>
+          Object.assign({}, styles.speedButton, {
+            border: `1px solid ${gameSpeed === 10 ? '#4E1212' : '#BFBFBF'}`,
+            color: gameSpeed === 10 ? '#4E1212' : '#BFBFBF'
+          })
+        }
+           onClick={toggleGameSpeed.bind(null, 10)}
+        >
         10x
       </div>
     </div>

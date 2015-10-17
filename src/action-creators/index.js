@@ -1,4 +1,12 @@
-import { BUILD_BOARD, POPULATE_ENTITIES, TOGGLE_VALUE, NEXT_TICK, PLAY_GAME, PAUSE_GAME } from '../actions/index';
+import {
+  BUILD_BOARD,
+  POPULATE_ENTITIES,
+  TOGGLE_VALUE,
+  NEXT_TICK,
+  PLAY_GAME,
+  PAUSE_GAME,
+  CHANGE_SPEED
+} from '../actions/index';
 import { getNeighbours, applyRules } from '../reducers/board';
 
 export const toggleValue = ({id, curValue}) => {
@@ -63,7 +71,7 @@ export const autoPlay = (dispatch, getState) => {
       board,
       dispatch,
       cb: autoPlay.bind(null, dispatch, getState)
-    }), 500);
+    }), 500 / getState().gameSpeed);
   } else {
     pauseGame(dispatch);
   }
@@ -92,3 +100,10 @@ export const toggleInPlay = ()  => (dispatch, getState) => {
     });
   }
 };
+
+export const toggleGameSpeed = speed => ({
+  type: CHANGE_SPEED,
+  payload: {
+    speed
+  }
+});

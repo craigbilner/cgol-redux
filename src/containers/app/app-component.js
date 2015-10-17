@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './app-style';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { toggleValue, toggleInPlay } from  '../../action-creators/index';
+import { toggleValue, toggleInPlay, toggleGameSpeed } from  '../../action-creators/index';
 import Board from '../../components/board/board-component';
 import Controls from '../../components/controls/controls-component';
 
@@ -12,7 +12,15 @@ class App extends React.Component {
   }
 
   render() {
-    const { board, entities, toggleValue, toggleInPlay, isInPlay } = this.props;
+    const {
+      board,
+      entities,
+      toggleValue,
+      toggleInPlay,
+      isInPlay,
+      gameSpeed,
+      toggleGameSpeed
+      } = this.props;
 
     return (
       <div style={styles.comp}>
@@ -21,6 +29,8 @@ class App extends React.Component {
           <Controls
             toggleInPlay={toggleInPlay}
             isInPlay={isInPlay}
+            gameSpeed={gameSpeed}
+            toggleGameSpeed={toggleGameSpeed}
             />
           <Board
             board={board}
@@ -38,15 +48,17 @@ App.propTypes = {};
 
 App.defaultProps = {};
 
-const mapStateToProps = ({ board, entities, isInPlay }) => ({
+const mapStateToProps = ({ board, entities, isInPlay, gameSpeed }) => ({
   board,
   entities,
-  isInPlay
+  isInPlay,
+  gameSpeed
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   toggleValue,
-  toggleInPlay
+  toggleInPlay,
+  toggleGameSpeed
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
