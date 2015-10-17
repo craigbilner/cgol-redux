@@ -5,11 +5,11 @@ import styles from './board-style';
 export default ({board, entities, toggleValue}) => (
   <div style={styles.comp}>
     {
-      board.map((row, x) => {
+      board.map((row, y) => {
         return (
-          <div key={x} style={styles.row}>
+          <div key={y} style={styles.row}>
             {
-              row.map((column, y) => {
+              row.map((column, x) => {
                 const id = `${x}|${y}`;
                 return (
                   <div key={id} style={styles.column}>
