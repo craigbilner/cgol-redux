@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import styles from './entity-style';
 
 export default class EntityComponent extends React.Component {
@@ -19,7 +20,7 @@ export default class EntityComponent extends React.Component {
         >
         <div style={styles.default}></div>
         <div style={
-        Object.assign({},styles.alive, {
+        _.assign({},styles.alive, {
             backgroundColor: `#${colour || '2345dc'}`,
             opacity: value
         })}></div>

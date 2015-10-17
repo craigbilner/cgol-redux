@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { BUILD_BOARD, POPULATE_ENTITIES, TOGGLE_VALUE, NEXT_TICK } from '../actions/index';
 
 export const board = (prevState = [], action = {}) => {
@@ -82,14 +83,14 @@ export const applyRules = ({id, entities}) => {
 };
 
 export const entities = (prevState = {}, action = {}) => {
-  let nextState = Object.assign({}, prevState);
+  let nextState = _.assign({}, prevState);
 
   if (action.type === POPULATE_ENTITIES) {
     const {board, getNeighbours, rows, columns} = action.payload;
-    Object.assign(nextState, {
+    _.assign(nextState, {
       details: board.reduce((entityMap, row, y) => {
-        return Object.assign({}, entityMap, row.reduce((colMap, column, x)=> {
-          return Object.assign({}, colMap, {
+        return _.assign({}, entityMap, row.reduce((colMap, column, x)=> {
+          return _.assign({}, colMap, {
             [`${x}|${y}`]: {
               value: 0,
               neighbours: getNeighbours({x, y, rows, columns})
@@ -115,19 +116,19 @@ export const entities = (prevState = {}, action = {}) => {
   if (action.type === NEXT_TICK) {
     const {board, applyRules, colours} = action.payload;
     let aliveCount = 0;
-    Object.assign(nextState, {
+    _.assign(nextState, {
       details: board.reduce((entityMap, row, y) => {
-        return Object.assign({}, entityMap, row.reduce((colMap, column, x)=> {
+        return _.assign({}, entityMap, row.reduce((colMap, column, x)=> {
           const id = `${x}|${y}`;
           const value = applyRules({id, entities: prevState.details});
           aliveCount = aliveCount + value;
-          return Object.assign({}, colMap, {
-            [id]: {
-              value,
-              neighbours: prevState.details[id].neighbours,
-              colour: colours[Math.min(x + y, board.length - 1)]
-            }
-          });
+          colMap[id] = {
+            value,
+            neighbours: prevState.details[id].neighbours,
+            colour: colours[Math.min(x + y, board.length - 1)]
+          };
+
+          return colMap;
         }, entityMap));
       }, {}),
       aliveCount: aliveCount
