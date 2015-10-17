@@ -20,20 +20,20 @@ export const getNeighbours = ({x, y, rows, columns}) => {
 
   if (x === 0) {
     // no left
-    xs = xs.concat(x, x + 1);
+    xs = xs.concat(columns - 1, x, x + 1);
   } else if (x === (columns - 1)) {
     //no right
-    xs = xs.concat(x - 1, x);
+    xs = xs.concat(x - 1, x, 0);
   } else {
     xs = xs.concat(x - 1, x, x + 1);
   }
 
   if (y === 0) {
     // no top
-    ys = ys.concat(y, y + 1);
+    ys = ys.concat(rows - 1, y, y + 1);
   } else if (y === (rows - 1)) {
     //no bottom
-    ys = ys.concat(y - 1, y);
+    ys = ys.concat(y - 1, y, 0);
   } else {
     ys = ys.concat(y - 1, y, y + 1);
   }
