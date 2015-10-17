@@ -116,9 +116,9 @@ export const entities = (prevState = {}, action = {}) => {
   if (action.type === NEXT_TICK) {
     const {board, applyRules, colours} = action.payload;
     let aliveCount = 0;
-    _.assign(nextState, {
+    return {
       details: board.reduce((entityMap, row, y) => {
-        return _.assign({}, entityMap, row.reduce((colMap, column, x)=> {
+        return _.assign(entityMap, row.reduce((colMap, column, x)=> {
           const id = `${x}|${y}`;
           const value = applyRules({id, entities: prevState.details});
           aliveCount = aliveCount + value;
@@ -132,7 +132,7 @@ export const entities = (prevState = {}, action = {}) => {
         }, entityMap));
       }, {}),
       aliveCount: aliveCount
-    });
+    };
   }
 
   return nextState;
