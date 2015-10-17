@@ -1,4 +1,4 @@
-import { BUILD_BOARD, POPULATE_ENTITIES, TOGGLE_VALUE, NEXT_TICK } from '../actions/index';
+import { BUILD_BOARD, POPULATE_ENTITIES, TOGGLE_VALUE, NEXT_TICK, PLAY_GAME, PAUSE_GAME } from '../actions/index';
 import { getNeighbours, applyRules } from '../reducers/board';
 
 export const toggleValue = ({id, curValue, columns}) => {
@@ -43,8 +43,8 @@ export const initGrid = ({rows, columns}) => (dispatch, getState) => {
   }));
 };
 
-const nextTickInterval = ({columns, applyRules, board, dispatch}) => {
-  const colourArray = new Array(columns);
+const nextTickInterval = ({applyRules, board, dispatch}) => {
+  const colourArray = new Array(board[0].length);
   colourArray.fill(0);
 
   dispatch({
@@ -57,11 +57,37 @@ const nextTickInterval = ({columns, applyRules, board, dispatch}) => {
   });
 };
 
-export const nextTick = ({columns}) => (dispatch, getState) => {
-  setInterval(nextTickInterval.bind(null, {
-    columns,
+let interval = 0;
+
+export const nextTick = (dispatch, { board }) => {
+  interval = setInterval(nextTickInterval.bind(null, {
     applyRules,
-    board: getState().board,
+    board,
     dispatch
   }), 500);
+};
+
+const playGame = ({dispatch, state}) => {
+  dispatch({
+    type: PLAY_GAME
+  });
+  nextTick(dispatch, state);
+};
+
+const pauseGame = dispatch => {
+  dispatch({
+    type: PAUSE_GAME
+  });
+  clearInterval(interval)
+};
+
+export const toggleInPlay = ()  => (dispatch, getState) => {
+  if (getState().isInPlay) {
+    pauseGame(dispatch);
+  } else {
+    playGame({
+      dispatch,
+      state: getState()
+    });
+  }
 };

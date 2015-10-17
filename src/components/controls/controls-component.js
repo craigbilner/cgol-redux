@@ -1,7 +1,11 @@
 import React from 'react';
 
-export default ({nextTick}) => (
+export default ({toggleInPlay, isInPlay}) => (
   <div>
-    <button text="play" onClick={nextTick} />
+    <div onClick={toggleInPlay}>
+      {
+        isInPlay ? 'pause' : 'play'
+      }
+    </div>
   </div>
 );

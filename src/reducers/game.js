@@ -1,13 +1,13 @@
 import { PLAY_GAME, PAUSE_GAME } from '../actions/index';
 
-export const isInPlay = (prevState = [], action = {}) => {
-  let nextState = Object.assign({}, prevState);
+export const isInPlay = (prevState = false, action = {}) => {
+  let isPlaying = prevState;
 
   if (action.type === PLAY_GAME) {
-    nextState.isInPlay = true;
+    isPlaying = true;
   } else if (action.type === PAUSE_GAME) {
-    nextState.isInPlay = false;
+    isPlaying = false;
   }
 
-  return nextState;
+  return isPlaying;
 };
