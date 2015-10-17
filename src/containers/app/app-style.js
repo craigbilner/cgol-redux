@@ -4,10 +4,14 @@ export default {
     flexFlow: 'row'
   },
   leftGutter: {
-    flex: 1
+    '@media (min-width: 768px)': {
+      flex: 1
+    }
   },
   rightGutter: {
-    flex: 1
+    '@media (min-width: 768px)': {
+      flex: 1
+    }
   },
   gol: {
     flex: 2

@@ -1,4 +1,5 @@
 import React from 'react';
+import Radium from 'radium';
 import styles from './app-style';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -61,4 +62,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   toggleGameSpeed
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(Radium(App))

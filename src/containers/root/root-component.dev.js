@@ -16,9 +16,17 @@ const store = compose(
   devTools()
 )(createStore)(allReducers);
 
+let rows = 12;
+let columns = 12;
+
+if (window.matchMedia("(min-width: 768px)").matches) {
+  rows = 17;
+  columns = 17;
+}
+
 store.dispatch(initGrid({
-  rows: 17,
-  columns: 17
+  rows,
+  columns
 }));
 
 export default class RootComponent extends React.Component {
@@ -33,7 +41,7 @@ export default class RootComponent extends React.Component {
           <App />
         </Provider>
         <DebugPanel top right bottom>
-          <DevTools store={store} monitor={LogMonitor} />
+          <DevTools store={store} monitor={LogMonitor}/>
         </DebugPanel>
       </div>
     );

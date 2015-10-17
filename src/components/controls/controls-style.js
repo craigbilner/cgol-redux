@@ -6,7 +6,10 @@ export default {
     alignItems: 'center'
   },
   gameButton: {
-    flex: 3,
+    flex: 2,
+    '@media (min-width: 768px)': {
+      flex: 3
+    },
     textAlign: 'center',
     fontFamily: 'Tahoma',
     height: 25,
@@ -15,7 +18,9 @@ export default {
     cursor: 'pointer'
   },
   leftGutter: {
-    flex: 1,
+    '@media (min-width: 768px)': {
+      flex: 1
+    },
     height: 25
   },
   rightGutter: {
@@ -30,7 +35,12 @@ export default {
     flex: 1,
     margin: '5px',
     textAlign: 'center',
-    paddingTop: 5,
-    cursor: 'pointer'
+    cursor: 'pointer',
+    paddingTop: 8,
+    fontSize: '0.7rem',
+    '@media (min-width: 768px)': {
+      paddingTop: 5,
+      fontSize: '1rem'
+    }
   }
 };
