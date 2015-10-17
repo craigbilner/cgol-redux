@@ -19,11 +19,15 @@ export default class EntityComponent extends React.Component {
         style={styles.comp}
         >
         <div style={styles.default}></div>
-        <div style={
-        _.assign({},styles.alive, {
+        <div style={{
+            height: '90%',
+            width: '90%',
+            position: 'absolute',
+            cursor: 'pointer',
+            transition: 'opacity 0.25s ease-out',
             backgroundColor: `#${colour || '2345dc'}`,
             opacity: value
-        })}></div>
+        }}></div>
       </div>
     );
   }
