@@ -19,20 +19,20 @@ export const getNeighbours = ({x, y, rows, columns}) => {
   let ys = [];
 
   if (x === 0) {
-    // no top
+    // no left
     xs = xs.concat(x, x + 1);
-  } else if (x === (rows - 1)) {
-    //no bottom
+  } else if (x === (columns - 1)) {
+    //no right
     xs = xs.concat(x - 1, x);
   } else {
     xs = xs.concat(x - 1, x, x + 1);
   }
 
   if (y === 0) {
-    // no left
+    // no top
     ys = ys.concat(y, y + 1);
-  } else if (y === (columns - 1)) {
-    //no right
+  } else if (y === (rows - 1)) {
+    //no bottom
     ys = ys.concat(y - 1, y);
   } else {
     ys = ys.concat(y - 1, y, y + 1);
@@ -86,8 +86,8 @@ export const entities = (prevState = {}, action = {}) => {
 
   if (action.type === POPULATE_ENTITIES) {
     const {board, getNeighbours, rows, columns} = action.payload;
-    Object.assign(nextState, board.reduce((entityMap, row, x) => {
-      return Object.assign({}, entityMap, row.reduce((colMap, column, y)=> {
+    Object.assign(nextState, board.reduce((entityMap, row, y) => {
+      return Object.assign({}, entityMap, row.reduce((colMap, column, x)=> {
         return Object.assign({}, colMap, {
           [`${x}|${y}`]: {
             value: 0,
@@ -112,8 +112,8 @@ export const entities = (prevState = {}, action = {}) => {
 
   if (action.type === NEXT_TICK) {
     const {board, applyRules, colours} = action.payload;
-    Object.assign(nextState, board.reduce((entityMap, row, x) => {
-      return Object.assign({}, entityMap, row.reduce((colMap, column, y)=> {
+    Object.assign(nextState, board.reduce((entityMap, row, y) => {
+      return Object.assign({}, entityMap, row.reduce((colMap, column, x)=> {
         const id = `${x}|${y}`;
         return Object.assign({}, colMap, {
           [id]: {
