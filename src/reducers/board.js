@@ -86,44 +86,52 @@ export const entities = (prevState = {}, action = {}) => {
 
   if (action.type === POPULATE_ENTITIES) {
     const {board, getNeighbours, rows, columns} = action.payload;
-    Object.assign(nextState, board.reduce((entityMap, row, y) => {
-      return Object.assign({}, entityMap, row.reduce((colMap, column, x)=> {
-        return Object.assign({}, colMap, {
-          [`${x}|${y}`]: {
-            value: 0,
-            neighbours: getNeighbours({x, y, rows, columns})
-          }
-        });
-      }, entityMap));
-    }, {}));
+    Object.assign(nextState, {
+      details: board.reduce((entityMap, row, y) => {
+        return Object.assign({}, entityMap, row.reduce((colMap, column, x)=> {
+          return Object.assign({}, colMap, {
+            [`${x}|${y}`]: {
+              value: 0,
+              neighbours: getNeighbours({x, y, rows, columns})
+            }
+          });
+        }, entityMap));
+      }, {}),
+      aliveCount: 0
+    });
   }
 
   if (action.type === TOGGLE_VALUE) {
     const {id, curValue, colours} = action.payload;
 
-    Object.assign(nextState, {
-      [id]: {
-        value: (!curValue) >> 0,
-        neighbours: prevState[id].neighbours,
-        colour: colours[id.split('|')[0]]
-      }
-    });
+    nextState.details[id] = {
+      value: (!curValue) >> 0,
+      neighbours: prevState.details[id].neighbours,
+      colour: colours[id.split('|')[0]]
+    };
+    nextState.aliveCount = nextState.aliveCount + 1;
   }
 
   if (action.type === NEXT_TICK) {
     const {board, applyRules, colours} = action.payload;
-    Object.assign(nextState, board.reduce((entityMap, row, y) => {
-      return Object.assign({}, entityMap, row.reduce((colMap, column, x)=> {
-        const id = `${x}|${y}`;
-        return Object.assign({}, colMap, {
-          [id]: {
-            value: applyRules({id, entities: prevState}),
-            neighbours: prevState[id].neighbours,
-            colour: colours[Math.min(x + y, board.length - 1)]
-          }
-        });
-      }, entityMap));
-    }, {}));
+    let aliveCount = 0;
+    Object.assign(nextState, {
+      details: board.reduce((entityMap, row, y) => {
+        return Object.assign({}, entityMap, row.reduce((colMap, column, x)=> {
+          const id = `${x}|${y}`;
+          const value = applyRules({id, entities: prevState.details});
+          aliveCount = aliveCount + value;
+          return Object.assign({}, colMap, {
+            [id]: {
+              value,
+              neighbours: prevState.details[id].neighbours,
+              colour: colours[Math.min(x + y, board.length - 1)]
+            }
+          });
+        }, entityMap));
+      }, {}),
+      aliveCount: aliveCount
+    });
   }
 
   return nextState;

@@ -15,10 +15,10 @@ export default ({board, entities, toggleValue}) => (
                   <div key={id} style={styles.column}>
                     <Entity
                       id={id}
-                      value={entities[id].value}
+                      value={entities.details[id].value}
                       toggleValue={toggleValue}
                       columns={board[0].length}
-                      colour={entities[id].colour}
+                      colour={entities.details[id].colour}
                       />
                   </div>
                 );
