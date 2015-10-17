@@ -17,7 +17,6 @@ export default ({board, entities, toggleValue}) => (
                       id={id}
                       value={entities.details[id].value}
                       toggleValue={toggleValue}
-                      columns={board[0].length}
                       colour={entities.details[id].colour}
                       />
                   </div>

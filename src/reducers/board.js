@@ -102,12 +102,12 @@ export const entities = (prevState = {}, action = {}) => {
   }
 
   if (action.type === TOGGLE_VALUE) {
-    const {id, curValue, colours} = action.payload;
+    const {id, curValue, colour} = action.payload;
 
     nextState.details[id] = {
       value: (!curValue) >> 0,
       neighbours: prevState.details[id].neighbours,
-      colour: colours[id.split('|')[0]]
+      colour
     };
     nextState.aliveCount = nextState.aliveCount + 1;
   }

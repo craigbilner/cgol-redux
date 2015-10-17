@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './entity-style';
 
-export default ({toggleValue, id, value, colour, columns}) => (
+export default ({toggleValue, id, value, colour}) => (
   <div
-    onClick={toggleValue.bind(null, {id, curValue: value, columns})}
+    onClick={toggleValue.bind(null, {id, curValue: value})}
     style={styles.comp}
     >
     <div style={styles.default}></div>

@@ -5,7 +5,7 @@ export default {
     height: 50,
     alignItems: 'center'
   },
-  button: {
+  gameButton: {
     flex: 3,
     textAlign: 'center',
     fontFamily: 'Tahoma',
@@ -19,7 +19,18 @@ export default {
     height: 25
   },
   rightGutter: {
+    display: 'flex',
+    flexFlow: 'row',
+    flex: 1
+  },
+  speedButton: {
+    fontFamily: 'Tahoma',
+    boxSizing: 'border-box',
+    height: 35,
     flex: 1,
-    height: 25
+    margin: '5px',
+    textAlign: 'center',
+    paddingTop: 5,
+    cursor: 'pointer'
   }
 };

@@ -1,16 +1,13 @@
 import { BUILD_BOARD, POPULATE_ENTITIES, TOGGLE_VALUE, NEXT_TICK, PLAY_GAME, PAUSE_GAME } from '../actions/index';
 import { getNeighbours, applyRules } from '../reducers/board';
 
-export const toggleValue = ({id, curValue, columns}) => {
-  const colourArray = new Array(columns);
-  colourArray.fill(0);
-
+export const toggleValue = ({id, curValue}) => {
   return {
     type: TOGGLE_VALUE,
     payload: {
       id,
       curValue,
-      colours: colourArray.map(() => (~~(Math.random() * (1 << 24))).toString(16))
+      colour: (~~(Math.random() * (1 << 24))).toString(16)
     }
   };
 };
